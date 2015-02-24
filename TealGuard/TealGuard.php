@@ -85,8 +85,25 @@ class TealGuard
             'type[=]' => 'ip'
         ];
 
-        $guard_blacklist = $database->select('tealguard', ['id'], $query_condition);
+        $guard_blacklist = $database->select('tealguard', ['type'], $query_condition);
 
+        if ($this->config['CHAIN_MODE']) {
+            $if_have_ip = false;
+
+            for ($i = 0; $i < count($guard_blacklist); $i++) {
+                if ($guard_blacklist[$i] ['type'] == 'ip') {
+                    $if_have_ip = true;
+                    break;
+                }
+            }
+
+            if (!$if_have_ip) {
+                $database->insert('tealguard', [
+                    'value' => $user_ip->get_ip_address(),
+                    'type' => 'ip'
+                ]);
+            }
+        }
         return (count($guard_blacklist) != 0);
     }
 

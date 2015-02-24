@@ -18,6 +18,8 @@ $plugin_injector = [
 $plugin_config = [
     "GUARD_CONTENT" => ['session.sweetCookie.cookie'],
 
+    "CHAIN_MODE" => true,
+
     "GUARD_SAYS" => [
         "id" => 0,
         "title" => "汝已经被驱逐出境。",
