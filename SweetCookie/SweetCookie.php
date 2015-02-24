@@ -23,6 +23,8 @@ class SweetCookie
     {
         $_SESSION['sweetCookie']['cookie'] = substr(md5(time() . UR_SALT), 0, 7); //饼干生成方法
         $_SESSION['sweetCookie']['expiration_time'] = $this->expiration_time;
+
+        return $_SESSION['sweetCookie']['cookie'];
     }
 
     public function cookie_checker()
