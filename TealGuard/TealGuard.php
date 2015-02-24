@@ -97,7 +97,7 @@ class TealGuard
                 }
             }
 
-            if (!$if_have_ip) {
+            if ($if_have_ip) {
                 $database->insert('tealguard', [
                     'value' => $user_ip->get_ip_address(),
                     'type' => 'ip'
