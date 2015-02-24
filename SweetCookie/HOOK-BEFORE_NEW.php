@@ -6,7 +6,7 @@
  * Time: 10:00 AM
  */
 
-require_once('sweetCookie.php');
+require_once('SweetCookie.php');
 
 $sweet_cookie = new SweetCookie();
 
