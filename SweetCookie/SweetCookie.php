@@ -30,7 +30,7 @@ class SweetCookie
     public function cookie_checker()
     {
         if (isset($_SESSION['logined']))
-            return true;
+            return 'Admin';
 
         if (!isset($_SESSION['sweetCookie']['cookie'])
             || time() > $_SESSION['sweetCookie']['expiration_time']
