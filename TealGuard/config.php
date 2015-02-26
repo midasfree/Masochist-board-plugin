@@ -18,6 +18,8 @@ $plugin_injector = [
 $plugin_config = [
     "GUARD_CONTENT" => ['session.sweetCookie.cookie'],
 
+    "GUARD_TICKER" => 1,
+
     "CHAIN_MODE" => true,
 
     "GUARD_SAYS" => [

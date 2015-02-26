@@ -14,3 +14,8 @@ if ($teal_guard->guard_activation()) {
     response_message(403, "You are not to allowed to post");
     exit();
 }
+
+if ($teal_guard->ip_guard()) {
+    response_message(403, "Excessive frequency");
+    exit();
+}

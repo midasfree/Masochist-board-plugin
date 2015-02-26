@@ -37,9 +37,7 @@ class TealGuard
     {
         global $database;
 
-        require_once('ip.php');
-
-        $user_ip = new user_ip();
+        $user_ip = get_ip_address();
 
         for ($i = 0; $i < count($this->config['GUARD_CONTENT']); $i++) {
             $guard_condition = explode('.', $this->config['GUARD_CONTENT'][$i]);
@@ -81,7 +79,7 @@ class TealGuard
         }
 
         $query_condition['OR']['AND#LOSSESIP'] = [
-            'value[=]' => $user_ip->get_ip_address(),
+            'value[=]' => $user_ip,
             'type[=]' => 'ip'
         ];
 
@@ -107,4 +105,24 @@ class TealGuard
         return (count($guard_blacklist) != 0);
     }
 
+    public function ip_guard()
+    {
+        global $database;
+
+        $ip = get_ip_address();
+
+        $ip_guard = $database
+            ->query("SELECT TIMESTAMPDIFF(MINUTE,`time`,NOW()) AS LOSSES
+                     FROM content WHERE `ip` = '$ip'
+                     ORDER BY `time` DESC LIMIT 1;")
+            ->fetchAll();
+
+        if (isset($ip_guard[0]['LOSSES'])
+            AND ((int)$ip_guard[0]['LOSSES'] < $this->config['GUARD_TICKER'])
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
