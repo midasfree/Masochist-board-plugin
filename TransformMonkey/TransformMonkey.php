@@ -12,7 +12,7 @@
 		}
 		
 		public function logined_confirm()
-		{
+		{	
 			require_once ('monkey.php');
 			
 			foreach ($monkey as $result)
@@ -30,5 +30,4 @@
 			}
 			return $_SESSION['logined'];
 		}
-		
 	}

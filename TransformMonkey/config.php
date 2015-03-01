@@ -12,7 +12,8 @@ $plugin_info =
 
 $plugin_injector =
 [
-    "HOOK-BEFORE_NEW" => "HOOK-BEFORE_NEW.php"
+    "HOOK-BEFORE_NEW"	=>	"HOOK-BEFORE_NEW.php",
+    "HOOK-BEFORE_LOGIN"	=>	"HOOK-BEFORE_LOGIN.php"
 ];
 
 $plugin_config =
