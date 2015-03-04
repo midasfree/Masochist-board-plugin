@@ -8,7 +8,7 @@
  */
 class SweetCookie
 {
-    private $config;
+    public $config;
     private $expiration_time;
 
     function __construct()

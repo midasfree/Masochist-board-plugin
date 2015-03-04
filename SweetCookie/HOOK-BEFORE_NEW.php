@@ -20,3 +20,9 @@ if (!$cookie) {
 global $post_author;
 
 $post_author = $cookie;
+
+if ($sweet_cookie->config['EX_HASH_IP']) {
+    global $post_ip;
+
+    $post_ip = md5(md5($post_ip . UR_SALT . md5($post_ip)) . UR_SALT);
+}

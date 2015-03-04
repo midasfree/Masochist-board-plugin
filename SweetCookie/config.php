@@ -15,5 +15,6 @@ $plugin_injector = [
 
 $plugin_config = [
     "EX_ENABLE_COOKIE" => true,
-    "EX_EXPIRATION_TIME" => 30
+    "EX_EXPIRATION_TIME" => 30,
+    "EX_HASH_IP" => false
 ];
