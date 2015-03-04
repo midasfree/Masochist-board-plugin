@@ -22,6 +22,8 @@ $plugin_config = [
 
     "CHAIN_MODE" => true,
 
+    "GUARD_READONLY" => false,
+
     "GUARD_SAYS" => [
         "id" => 0,
         "title" => "汝已经被驱逐出境。",

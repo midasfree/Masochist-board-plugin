@@ -19,3 +19,8 @@ if ($teal_guard->ip_guard()) {
     response_message(403, "Excessive frequency");
     exit();
 }
+
+if ($teal_guard->config['GUARD_READONLY'] && !(isset($_SESSION['logined']) && $_SESSION['logined'] == true)) {
+    response_message(403, "Readonly Mode now.");
+    exit();
+}
