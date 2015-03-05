@@ -19,7 +19,7 @@ class SweetCookie
         $this->expiration_time = time() + $this->config['EX_EXPIRATION_TIME'] * 86400;
     }
 
-    private function generate_cookie()
+    public function generate_cookie()
     {
         $_SESSION['sweetCookie']['cookie'] = substr(md5(time() . UR_SALT), 0, 7); //饼干生成方法
         $_SESSION['sweetCookie']['expiration_time'] = $this->expiration_time;
