@@ -14,14 +14,11 @@ $plugin_injector = [
 ];
 
 $plugin_config = [
-    'site_key' => '',
-    'secret_key' => ''
+    'self-vending_machines' => true,
+    'site_key' => '6Ld9DAMTAAAAABXm9Zpv-ZQm6JrpQOyqzfrr4aQv',
+    'secret_key' => '6Ld9DAMTAAAAALAbqurAf12aAm9CTz5ccWqkF4ai'
 ];
 
 $plugin_public_page = [
-    'cookie_shop' => [
-        'stylesheet' => 'style.css',
-        'script' => 'script.css',
-        'template' => 'shop.html'
-    ]
+    'cookie_shop' => 'shop.html'
 ];

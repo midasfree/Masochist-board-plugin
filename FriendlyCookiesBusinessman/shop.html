@@ -1,1 +1,104 @@
-aaaaa
+<style>
+    h3 {
+        color: #2c184f;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .hint {
+        margin: 20px 0;
+        padding: 15px;
+        border-radius: 3px;
+        background: #ece8f5;
+        color: #2c184f;
+        font-size: 12px;
+        line-height: 2em;
+    }
+
+    #reCAPTCHA {
+        min-height: 78px;
+        width: 304px;
+        margin: 30px auto;
+    }
+
+    .get {
+        margin: 0 auto 50px auto;
+        border: 0;
+        border-radius: 3px;
+        background: #ff9800;
+        color: white;
+        padding: 10px 30px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        display: block;
+        transition: all 300ms;
+    }
+
+    .get:hover {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    .get:active, .get:focus {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+
+</style>
+
+<h3>自助饼干机</h3>
+<div class="hint">
+    <p>如果使用国内网络访问本页面，请切换到代理模式，本页面使用了Google的reCAPTCHA。</p>
+
+    <p>在页面加载完毕后，点击 I'm not robot，之后按点击领取饼干，即可拿到你的饼干。</p>
+
+    <p>Masochist-board在脱离Alpha, Beta版本之前，我们不会对数量低于低于20的刷版进行惩罚，高于20的刷版将没收饼干。</p>
+
+    <p>Masochist-board在脱离Alpha, Beta版本之前，我们会记录所有发po者的ip，介意的话可以选择使用代理访问。ip数据将在脱离Alpha
+        后进行清理。</p>
+
+    <p>页面高度不够再加一行撑撑版面。</p>
+</div>
+<form id="machine" method="post" action="./api/?plugin" onsubmit="getCookie();return false;">
+    <input name="api" value="losses.friendly.cookies.businessman" style="display: none"/>
+    <input name="get_cookie" value="" style="display: none"/>
+
+    <div id="reCAPTCHA"></div>
+    <button class="get" title="违规的会被爆菊哦！">领取饼干</button>
+</form>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+    plugin.$http({
+        method: 'POST',
+        url: 'api/?plugin',
+        data: $.param({
+            'api': 'losses.friendly.cookies.businessman'
+        }),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).success(function (response) {
+        if (response.message) {
+            publicWarning(response.message);
+        } else {
+            var reCAPTCHA = $('<div>').addClass('g-recaptcha')
+                    .attr('data-sitekey', response.site_key);
+
+            $('#reCAPTCHA').append(reCAPTCHA);
+        }
+    });
+
+    function getCookie() {
+        $('#machine').ajaxSubmit(function (data) {
+            try {
+                var response = JSON.parse(data);
+            } catch (e) {
+                publicWarning(data);
+            }
+
+            if (response.message) {
+                publicWarning(response.message);
+            } else {
+                publicWarning(response);
+            }
+        });
+
+        return false;
+    }
+</script>
