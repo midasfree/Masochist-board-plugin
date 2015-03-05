@@ -25,8 +25,8 @@ if (isset($_POST['get_cookie'])) {
     $context = stream_context_create($options);
     $result = json_decode(file_get_contents($url, false, $context));
 
-    if ($result['success'] == true) {
-        $sweet_cookie_location = $plugin->config['losses.sweet.cookie']['dir_location'] . '\SweetCookie.php';
+    if ($result->success == true) {
+        $sweet_cookie_location = $plugin->config['losses.sweet.cookie']['dir_location'] . '/SweetCookie.php';
         if (!is_file($sweet_cookie_location))
             response_message(403, 'please install SweetCookie first');
 
