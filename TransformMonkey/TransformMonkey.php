@@ -3,20 +3,23 @@
 	class TransformMonkey
 	{
 		private $config;
-		
+
 		function __construct()
 		{
 			global $plugin;
 
 			$this->config = $plugin->config['lark.transform.monkey'];
 		}
-		
+
 		public function logined_confirm()
-		{	
+		{
+            $monkey = [];
 			require_once ('monkey.php');
-			
+
 			foreach ($monkey as $result)
-			{	
+			{
+                print_r($_SESSION['key']);
+
 				if (md5(md5($result['password']) . $_SESSION['key']) == $_POST['password'])
 				{
 					$_SESSION['logined'] = true;

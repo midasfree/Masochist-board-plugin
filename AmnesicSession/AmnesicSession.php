@@ -83,9 +83,9 @@ class AmnesicSession
                 'session_id' => $session_id
             ]);
             if (isset($session_record[0])) {
-                $data = $this->database->update('amnesicsession', [
+                $data = $this->database->update('amnesicsession', $sql_action, [
                     'session_id' => $session_id
-                ], $sql_action);
+                ]);
             } else {
                 $data = $this->database->insert('amnesicsession', $sql_action);
             }
