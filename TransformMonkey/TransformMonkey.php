@@ -18,7 +18,6 @@
 
 			foreach ($monkey as $result)
 			{
-                print_r($_SESSION['key']);
 
 				if (md5(md5($result['password']) . $_SESSION['key']) == $_POST['password'])
 				{
