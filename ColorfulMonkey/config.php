@@ -13,8 +13,8 @@ $plugin_info =
 
 $plugin_injector =
 [
-	"HOOK-AFTER_LIST"	=>	"HOOK-AFTER_LIST.php",
-    "HOOK-AFTER_POST"	=>	"HOOK-AFTER_POST.php"
+    "HOOK-AFTER_LIST"	=>	"HOOK-AFTER_VIEW.php",
+    "HOOK-AFTER_POST"	=>	"HOOK-AFTER_VIEW.php"
 ];
 
 $plugin_config =
