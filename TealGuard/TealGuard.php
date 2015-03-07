@@ -33,6 +33,41 @@ class TealGuard
 
     }
 
+    private function parse_key($key)
+    {
+        $guard_condition = explode('.', $key);
+
+        $guard_content = [];
+
+        for ($j = 0; $j < count($guard_condition); $j++) {
+
+            if ($j == 0) {
+                switch ($guard_condition[0]) {
+                    case 'session':
+                        $guard_content = isset($_SESSION) ? $_SESSION : false;
+                        break;
+                    case 'cookie':
+                        $guard_content = isset($_COOKIE) ? $_COOKIE : false;
+                        break;
+                    case 'post':
+                        $guard_content = isset($_POST) ? $_POST : false;
+                        break;
+                    case 'get':
+                        $guard_content = isset($_GET) ? $_GET : false;
+                }
+            } else {
+                if (isset($guard_content[$guard_condition[$j]])) {
+                    $guard_content = $guard_content[$guard_condition[$j]];
+                } else {
+                    $guard_content = '';
+                    break;
+                }
+            }
+        }
+
+        return $guard_content;
+    }
+
     public function guard_activation()
     {
         global $database;
@@ -40,35 +75,9 @@ class TealGuard
         $user_ip = get_ip_address();
 
         for ($i = 0; $i < count($this->config['GUARD_CONTENT']); $i++) {
-            $guard_condition = explode('.', $this->config['GUARD_CONTENT'][$i]);
-
             $query_condition = [];
-            $guard_content = [];
 
-            for ($j = 0; $j < count($guard_condition); $j++) {
-                if ($j == 0) {
-                    switch ($guard_condition[0]) {
-                        case 'session':
-                            $guard_content = isset($_SESSION) ? $_SESSION : false;
-                            break;
-                        case 'cookie':
-                            $guard_content = isset($_COOKIE) ? $_COOKIE : false;
-                            break;
-                        case 'post':
-                            $guard_content = isset($_POST) ? $_POST : false;
-                            break;
-                        case 'get':
-                            $guard_content = isset($_GET) ? $_GET : false;
-                    }
-                } else {
-                    if (isset($guard_content[$guard_condition[$j]])) {
-                        $guard_content = $guard_content[$guard_condition[$j]];
-                    } else {
-                        $guard_content = '';
-                        break;
-                    }
-                }
-            }
+            $guard_content = $this->parse_key($this->config['GUARD_CONTENT'][$i]);
 
             if ($guard_content != '') {
                 $query_condition['OR']["AND#$guard_content"] = [
@@ -112,22 +121,27 @@ class TealGuard
         $ip = get_ip_address();
         $additional_sql = '';
 
-        if (count($this->config['config.php']) != 0) {
-            foreach ($this->config['config.php'] as $key => $value) {
-                $additional_sql .= " AND `$key` = `$value`";
+        if (count($this->config['GUARD_COL']) != 0) {
+            foreach ($this->config['GUARD_COL'] as $key => $value) {
+                $con_key = $this->parse_key($value);
+                $additional_sql .= "OR `$key` = '$con_key' ";
             }
         }
 
         $ip_guard = $database
-            ->query("SELECT TIMESTAMPDIFF(MINUTE,`time`,NOW()) AS LOSSES
+            ->debug()->query("SELECT TIMESTAMPDIFF(MINUTE,`time`,NOW()) AS LOSSES
                      FROM content WHERE `ip` = '$ip' $additional_sql
-                     ORDER BY `time` DESC LIMIT 1;")
+                     ORDER BY `id` DESC LIMIT 1;")
             ->fetchAll();
+
+        print_r((int)$ip_guard[0]['LOSSES']);
 
         if (isset($ip_guard[0]['LOSSES'])
             AND ((int)$ip_guard[0]['LOSSES'] < $this->config['GUARD_TICKER'])
         ) {
+            print_r('a');
             return true;
+
         } else {
             return false;
         }
