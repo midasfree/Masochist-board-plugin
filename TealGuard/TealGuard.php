@@ -110,10 +110,17 @@ class TealGuard
         global $database;
 
         $ip = get_ip_address();
+        $additional_sql = '';
+
+        if (count($this->config['config.php']) != 0) {
+            foreach ($this->config['config.php'] as $key => $value) {
+                $additional_sql .= " AND `$key` = `$value`";
+            }
+        }
 
         $ip_guard = $database
             ->query("SELECT TIMESTAMPDIFF(MINUTE,`time`,NOW()) AS LOSSES
-                     FROM content WHERE `ip` = '$ip'
+                     FROM content WHERE `ip` = '$ip' $additional_sql
                      ORDER BY `time` DESC LIMIT 1;")
             ->fetchAll();
 

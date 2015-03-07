@@ -20,6 +20,10 @@ $plugin_config = [
 
     "GUARD_TICKER" => 1,
 
+    "GUARD_COL" => [
+        'author' => $_SESSION['sweetCookie']['cookie']
+    ],
+
     "CHAIN_MODE" => true,
 
     "GUARD_READONLY" => false,
