@@ -105,12 +105,11 @@
 
             if (response.message) {
                 publicWarning(response.message);
+                if (response.code == 200) {
+                    magicalLocation('#/');
+                }
             } else {
                 publicWarning(response);
-            }
-
-            if (response.code == 200) {
-                magicalLocation('#/');
             }
         });
 
