@@ -95,7 +95,9 @@
     function getCookie() {
         if ($('.get').hasClass('close')) {
             publicWarning('饼干店没开你敲个啥劲……');
+            return;
         }
+        
         $('#machine').ajaxSubmit(function (data) {
             try {
                 var response = JSON.parse(data);
