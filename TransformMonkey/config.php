@@ -5,18 +5,18 @@
  *                         midasfree@gmail.com*
 \**********************************************/
 
-$plugin_info = 
-[
+    $plugin_info = 
+    [
 	"IDENTIFICATION" => "lark.transform.monkey"
-];
+    ];
 
-$plugin_injector =
-[
-    "HOOK-BEFORE_NEW"	=>	"HOOK-BEFORE_NEW.php",
-    "HOOK-BEFORE_LOGIN"	=>	"HOOK-BEFORE_LOGIN.php"
-];
+    $plugin_injector =
+    [
+	"HOOK-BEFORE_NEW"	=>	"HOOK-BEFORE_NEW.php",
+	"HOOK-BEFORE_LOGIN"	=>	"HOOK-BEFORE_LOGIN.php"
+    ];
 
-$plugin_config =
-[
-	
-];
+    $plugin_config =
+    [
+	"TM_MONKEY_PREFIX"	=>	"$"
+    ];

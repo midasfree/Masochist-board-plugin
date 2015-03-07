@@ -2,7 +2,7 @@
 
 	class TransformMonkey
 	{
-		private $config;
+		public $config;
 
 		function __construct()
 		{
@@ -19,10 +19,12 @@
 			foreach ($monkey as $result)
 			{
 
-				if (md5(md5($result['password']) . $_SESSION['key']) == $_POST['password'])
+				if (md5(md5($result['password']) . $_SESSION['key']) ==
+					$_POST['password'])
 				{
 					$_SESSION['logined'] = true;
-					$_SESSION['lark.transform.monkey']['name'] = $result['monkeyName'];
+					$_SESSION['lark.transform.monkey']['name'] =
+						$result['monkeyName'];
 					break;
 				}
 				else
