@@ -33,6 +33,10 @@
         transition: all 300ms;
     }
 
+    .close {
+        background: gray;
+    }
+
     .get:hover {
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     }
@@ -75,6 +79,10 @@
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).success(function (response) {
         if (response.message) {
+            if (response.code == 403) {
+                $('.get').addClass('close')
+                        .text('没开门');
+            }
             publicWarning(response.message);
         } else {
             var reCAPTCHA = $('<div>').addClass('g-recaptcha')
@@ -85,6 +93,9 @@
     });
 
     function getCookie() {
+        if ($('.get').hasClass('close')) {
+            publicWarning('饼干店没开你敲个啥劲……');
+        }
         $('#machine').ajaxSubmit(function (data) {
             try {
                 var response = JSON.parse(data);
@@ -96,6 +107,10 @@
                 publicWarning(response.message);
             } else {
                 publicWarning(response);
+            }
+
+            if (response.code == 200) {
+                magicalLocation('#/');
             }
         });
 

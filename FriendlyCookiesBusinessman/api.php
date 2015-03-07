@@ -8,6 +8,9 @@
 
 global $plugin;
 
+if (!$plugin->config['losses.sweet.cookie']['config.php'])
+    response_message(403,'The cookie businessman is sleeping.');
+
 if (isset($_POST['get_cookie'])) {
     $url = 'https://www.google.com/recaptcha/api/siteverify';
     $data = [
