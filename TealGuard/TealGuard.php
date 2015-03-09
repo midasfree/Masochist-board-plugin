@@ -129,7 +129,7 @@ class TealGuard
         }
 
         $ip_guard = $database
-            ->debug()->query("SELECT TIMESTAMPDIFF(MINUTE,`time`,NOW()) AS LOSSES
+            ->query("SELECT TIMESTAMPDIFF(MINUTE,`time`,NOW()) AS LOSSES
                      FROM content WHERE `ip` = '$ip' $additional_sql
                      ORDER BY `id` DESC LIMIT 1;")
             ->fetchAll();
