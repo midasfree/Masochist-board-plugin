@@ -134,12 +134,9 @@ class TealGuard
                      ORDER BY `id` DESC LIMIT 1;")
             ->fetchAll();
 
-        print_r((int)$ip_guard[0]['LOSSES']);
-
         if (isset($ip_guard[0]['LOSSES'])
             AND ((int)$ip_guard[0]['LOSSES'] < $this->config['GUARD_TICKER'])
         ) {
-            print_r('a');
             return true;
 
         } else {
