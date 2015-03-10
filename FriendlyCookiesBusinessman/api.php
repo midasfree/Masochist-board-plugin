@@ -8,7 +8,7 @@
 
 global $plugin;
 
-if (!$plugin->config['losses.sweet.cookie']['config.php'])
+if (!$plugin->config['losses.friendly.cookies.businessman']['self-vending_machines'])
     response_message(403,'The cookie businessman is sleeping.');
 
 if (isset($_POST['get_cookie'])) {
