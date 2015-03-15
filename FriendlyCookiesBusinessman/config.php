@@ -20,5 +20,8 @@ $plugin_config = [
 ];
 
 $plugin_public_page = [
-    'cookie_shop' => 'shop.html'
+    'cookie_shop' => [
+        'html' => 'shop.html',
+        'script' => 'script.js'
+    ]
 ];
